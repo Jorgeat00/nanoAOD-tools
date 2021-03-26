@@ -40,8 +40,8 @@ options     = args.options
 dataset     = args.dataset
 
 path = CheckPathDataset(dataset)
-if path != '': 
-  print 'Reading file: ', path
-  dataset = ReadLines(path)
-GetEntriesDAS(dataset, verbose, doPretend)
+if path != '':
+    print 'Reading file: ', path
+    dataset = ReadLines(path)
+    GetEntriesDAS(dataset, verbose, doPretend)
 
