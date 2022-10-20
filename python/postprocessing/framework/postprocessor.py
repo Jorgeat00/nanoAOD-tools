@@ -177,8 +177,8 @@ class PostProcessor:
             self.hcount.SetBinContent(1, nEntries)
             if inTree.GetBranchStatus("genWeight"):
                 inTree.Project("SumWeightsTemp", "1.0", "genWeight")
-                self.hsumofweights.SetBinContent(1,
-                                                 ROOT.gROOT.FindObject("SumWeightsTemp").Integral())
+                self.hsumweights.SetBinContent(1,
+                                               ROOT.gROOT.FindObject("SumWeightsTemp").Integral())
             #### ========
 
             # pre-skimming
@@ -199,6 +199,11 @@ class PostProcessor:
                 inAddTree = inAddFiles[-1].Get("Events")
                 if inAddTree is None:
                     inAddTree = inAddFiles[-1].Get("Friends")
+                else:
+                    try:
+                        dummyval = inAddTree.GetName()
+                    except:
+                        inAddTree = inAddFiles[-1].Get("Friends")
                 inAddTrees.append(inAddTree)
                 inTree.AddFriend(inAddTree)
 
@@ -208,7 +213,10 @@ class PostProcessor:
                     inTree.SetEntryList(elist)
             else:
                 # initialize reader
-                inTree = InputTree(inTree, elist)
+                if elist:
+                    inTree = InputTree(inTree, elist)
+                else:
+                    inTree = InputTree(inTree)
 
             # prepare output file
             if not self.noOut:

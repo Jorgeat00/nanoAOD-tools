@@ -11,15 +11,19 @@ all_data_dataset_groups = ["SingleMuon", "DoubleMuon", "SingleElectron", "Double
 xsecDict = {"DY_M0to50"       : 106300.0,
             "DY_M10to50"      : 22635.09,
             "DY_M50"          : 6025.2,
+            "DY_0J"           : 5129.0,         # NLO+PS XSDB
+            "DY_1J"           : 951.5,          # NLO+PS XSDB
+            "DY_2J"           : 361.4,          # NLO+PS XSDB
 
-            "WWbb_bb4l"       : 52.54,          # NLO
+            "WWbb_bb4l"       : 52.54,          # NLO+PS
 
             "ttbar_dilep"     : 88.28769753,    # NNLO
             "ttbar_semilep"   : 365.3994209,    # NNLO
             "ttbar_inclusive" : 831.76,         # NNLO
 
-            "tW_inclusive"    : 35.85,          # NNLO
-            "tW_nofullyhad"   : 19.4674104,     # NNLO
+            "tW_inclusive"    : 35.85,          # aNNLO
+            "tW_dileptonic"   : 7.8081,         # aNNLO
+            "tW_nofullyhad"   : 19.4674104,     # aNNLO
 
             "ttW_lep"         : 0.2043,
             "ttW_ewkNLO_lep"  : 0.491,
@@ -34,8 +38,11 @@ xsecDict = {"DY_M0to50"       : 106300.0,
             "ttGamma_singlel" : 5.08,
 
             "WJets_lep"       : 61526.7,
+            "WJets_0J_lep"    : 53330.0,
+            "WJets_1J_lep"    : 8875.0,
+            "WJets_2J_lep"    : 3338.0,
 
-            "WW"              : 115,
+            "WW"              : 115.,
             "WW_dilep"        : 12.178,
             "WW_dilep_2scatt" : 1.61704,
             "WW_lnuqq"        : 45.53,
@@ -43,7 +50,9 @@ xsecDict = {"DY_M0to50"       : 106300.0,
             "WZ"              : 47.13,
             "WZ_lnu2q"        : 10.7408,
             "WZ_2l2q"         : 5.595,
+            "WZ_2l2q_mllmin4p0":6.419,
             "WZ_3lnu"         : 4.42965,
+            "WZ_3lnu_mllmin01": 4.664,           # NLO+PS XSDB
 
             "ZZ"              : 16.523,
             "ZZ_dilep"        : 0.564,
@@ -51,6 +60,7 @@ xsecDict = {"DY_M0to50"       : 106300.0,
             "ZZ_2q2nu"        : 4.04,
             "ZZ_4l"           : 1.256,
             "ZZ_4l_2scatt"    : 0.009697,
+            "ZZ_4l_mllmin1p0" : 13.74,           # NLO+PS XSDB
 
             "WWW"             : 0.2086,
             "WWZ"             : 0.1651,
@@ -69,10 +79,20 @@ xsecDictExtended = {"ST_tW_antitop_5f_NoFullyHadronicDecays_TuneEE5C_13TeV-powhe
                     "ST_tW_antitop_5f_NoFullyHadronicDecays_TuneCP5_PSweights_13TeV-powheg-pythia8" : xsecDict["tW_nofullyhad"],
                     "ST_tW_antitop_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8"           : xsecDict["tW_nofullyhad"],
                     "ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV-powheg-pythia8"               : xsecDict["tW_nofullyhad"],
+                    "ST_tW_top_5f_NoFullyHadronicDecays_TuneCP5_13TeV_PDFWeights-powheg-pythia8"    : xsecDict["tW_nofullyhad"],
+                    "ST_tW_antitop_5f_NoFullyHadronicDecays_TuneCP5_13TeV_PDFWeights-powheg-pythia8": xsecDict["tW_nofullyhad"],
+                    
                     "ST_tW_antitop_5f_inclusiveDecays_TuneCP5_PSweights_13TeV-powheg-pythia8"       : xsecDict["tW_inclusive"],
                     "ST_tW_top_5f_inclusiveDecays_TuneCP5_PSweights_13TeV-powheg-pythia8"           : xsecDict["tW_inclusive"],
                     "ST_tW_antitop_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8"                 : xsecDict["tW_inclusive"],
                     "ST_tW_top_5f_inclusiveDecays_TuneCP5_13TeV-powheg-pythia8"                     : xsecDict["tW_inclusive"],
+                    
+                    "ST_tW_Dilept_5f_DR_TuneCP5_13TeV-amcatnlo-pythia8"                             : xsecDict["tW_dileptonic"],
+                    "ST_tW_Dilept_5f_DR2_TuneCP5_13TeV-amcatnlo-pythia8"                            : xsecDict["tW_dileptonic"],
+                    "ST_tW_Dilept_5f_DS_TuneCP5_13TeV-amcatnlo-pythia8"                             : xsecDict["tW_dileptonic"],
+                    "ST_tW_Dilept_5f_DS_runningBW_TuneCP5_13TeV-amcatnlo-pythia8"                   : xsecDict["tW_dileptonic"],
+                    "ST_tW_Dilept_5f_DS_IS_TuneCP5_13TeV-amcatnlo-pythia8"                          : xsecDict["tW_dileptonic"],
+                    "ST_tW_Dilept_5f_DS_IS_runningBW_TuneCP5_13TeV-amcatnlo-pythia8"                : xsecDict["tW_dileptonic"],
 
                     "DYJetsToLL_M-10to50_TuneCP5_13TeV-madgraphMLM-pythia8"                         : xsecDict["DY_M10to50"],
                     "DYJetsToLL_M-10to50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"                    : xsecDict["DY_M10to50"],
@@ -82,6 +102,9 @@ xsecDictExtended = {"ST_tW_antitop_5f_NoFullyHadronicDecays_TuneEE5C_13TeV-powhe
                     "DYJetsToLL_M-50_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8"                       : xsecDict["DY_M50"],
                     "DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8"                            : xsecDict["DY_M50"],
                     "DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8"                             : xsecDict["DY_M50"],
+                    "DYJetsToLL_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8"                              : xsecDict["DY_0J"],
+                    "DYJetsToLL_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8"                              : xsecDict["DY_1J"],
+                    "DYJetsToLL_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8"                              : xsecDict["DY_2J"],
 
                     "b_bbar_4l_TuneCP5_13TeV-powheg-pythia8"                                        : xsecDict["WWbb_bb4l"],
 
@@ -97,11 +120,13 @@ xsecDictExtended = {"ST_tW_antitop_5f_NoFullyHadronicDecays_TuneEE5C_13TeV-powhe
                     "TTZToLLNuNu_M-10_TuneCP5_PSweights_13TeV-amcatnlo-pythia8"                     : xsecDict["ttZ_lep_M10"],
                     "TTZToLLNuNu_M-10_TuneCP5_13TeV-amcatnlo-pythia8"                               : xsecDict["ttZ_lep_M10"],
                     "TTZJetsToQQ_Dilept_TuneCP5_PSweights_13TeV-amcatnlo-pythia8"                   : xsecDict["ttZ_had_dilep"],
+                    "TTZToQQ_Dilept_TuneCP5_13TeV-amcatnlo-pythia8"                                 : xsecDict["ttZ_had_dilep"],
                     "TTZToQQ_TuneCP5_13TeV-amcatnlo-pythia8"                                        : xsecDict["ttZ_had"],
 
                     "TTWJetsToLNu_TuneCP5_PSweights_13TeV-amcatnloFXFX-madspin-pythia8"             : xsecDict["ttW_lep"],
                     "TTWJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8"                       : xsecDict["ttW_lep"],
                     "TTWJetsToLNu_EWK_5f_NLO"                                                       : xsecDict["ttW_ewkNLO_lep"],
+                    "ttWJetsToLNu_5f_EWK_TuneCP5_13TeV_amcatnlo-pythia8"                            : xsecDict["ttW_ewkNLO_lep"],
                     "TTWJetsToQQ_TuneCUETP8M1_13TeV-amcatnloFXFX-madspin-pythia8"                   : xsecDict["ttW_had"],
                     "TTWJetsToQQ_TuneCP5_13TeV-amcatnloFXFX-madspin-pythia8"                        : xsecDict["ttW_had"],
 
@@ -112,11 +137,14 @@ xsecDictExtended = {"ST_tW_antitop_5f_NoFullyHadronicDecays_TuneEE5C_13TeV-powhe
 
                     "WJetsToLNu_TuneCP5_13TeV-madgraphMLM-pythia8"                                  : xsecDict["WJets_lep"],
                     "WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8"                             : xsecDict["WJets_lep"],
+                    "WJetsToLNu_TuneCP5_13TeV-amcatnloFXFX-pythia8"                                 : xsecDict["WJets_lep"],
                     "WJetsToLNu_TuneCUETP8M1_13TeV-amcatnloFXFX-pythia8"                            : xsecDict["WJets_lep"],
-                    "WJetsToLNu_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8"                              : xsecDict["WJets_lep"], #### WARNING
-                    "WJetsToLNu_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8"                              : xsecDict["WJets_lep"], #### WARNING
-                    "WJetsToLNu_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8"                              : xsecDict["WJets_lep"], #### WARNING
+                    "WJetsToLNu_0J_TuneCP5_13TeV-amcatnloFXFX-pythia8"                              : xsecDict["WJets_0J_lep"],
+                    "WJetsToLNu_1J_TuneCP5_13TeV-amcatnloFXFX-pythia8"                              : xsecDict["WJets_1J_lep"],
+                    "WJetsToLNu_2J_TuneCP5_13TeV-amcatnloFXFX-pythia8"                              : xsecDict["WJets_2J_lep"],
 
+                    "WW_TuneCP5_13TeV-pythia8"                                                      : xsecDict["WW"],
+                    "WWTo2L2Nu_TuneCP5_13TeV-powheg-pythia8"                                        : xsecDict["WW_dilep"],
                     "WWTo2L2Nu_13TeV-powheg"                                                        : xsecDict["WW_dilep"],
                     "WWTo2L2Nu_NNPDF31_TuneCP5_13TeV-powheg-pythia8"                                : xsecDict["WW_dilep"],
                     "WWTo2L2Nu_NNPDF31_TuneCP5_PSweights_13TeV-powheg-pythia8"                      : xsecDict["WW_dilep"],
@@ -125,25 +153,36 @@ xsecDictExtended = {"ST_tW_antitop_5f_NoFullyHadronicDecays_TuneEE5C_13TeV-powhe
                     "WWToLNuQQ_NNPDF31_TuneCP5_13TeV-powheg-pythia8"                                : xsecDict["WW_lnuqq"],
                     "WWToLNuQQ_NNPDF31_TuneCP5_PSweights_13TeV-powheg-pythia8"                      : xsecDict["WW_lnuqq"],
                     "WWTo1L1Nu2Q_13TeV_amcatnloFXFX_madspin_pythia8"                                : xsecDict["WW_lnuqq"],
+                    "WWTo1L1Nu2Q_TuneCP5_13TeV-amcatnloFXFX-pythia8"                                : xsecDict["WW_lnuqq"],
+                    "WWTo1L1Nu2Q_4f_TuneCP5_13TeV-amcatnloFXFX-pythia8"                             : xsecDict["WW_lnuqq"],
 
+                    "WZ_TuneCP5_13TeV-pythia8"                                                      : xsecDict["WZ"],
                     "WZTo1L1Nu2Q_TuneCP5_13TeV_amcatnloFXFX_madspin_pythia8"                        : xsecDict["WZ_lnu2q"],
+                    "WZTo1L1Nu2Q_TuneCP5_13TeV-amcatnloFXFX-pythia8"                                : xsecDict["WZ_lnu2q"],
                     "WZTo1L1Nu2Q_13TeV_amcatnloFXFX_madspin_pythia8"                                : xsecDict["WZ_lnu2q"],
                     "WZToLNu2Q_13TeV_powheg_pythia8"                                                : xsecDict["WZ_lnu2q"],
+                    "WZTo1L1Nu2Q_4f_TuneCP5_13TeV-amcatnloFXFX-pythia8"                             : xsecDict["WZ_lnu2q"],
                     "WZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8"                                   : xsecDict["WZ_2l2q"],
+                    "WZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8"                         : xsecDict["WZ_2l2q_mllmin4p0"],
                     "WZTo3LNu_TuneCUETP8M1_13TeV-powheg-pythia8"                                    : xsecDict["WZ_3lnu"],
                     "WZTo3LNu_13TeV-powheg-pythia8"                                                 : xsecDict["WZ_3lnu"],
                     "WZTo3LNu_TuneCP5_13TeV-powheg-pythia8"                                         : xsecDict["WZ_3lnu"],
+                    "WZTo3LNu_TuneCP5_13TeV-amcatnloFXFX-pythia8"                                   : xsecDict["WZ_3lnu"],
+                    "WZTo3LNu_mllmin01_NNPDF31_TuneCP5_13TeV_powheg_pythia8"                        : xsecDict["WZ_3lnu_mllmin01"],
 
+                    "ZZ_TuneCP5_13TeV-pythia8"                                                      : xsecDict["ZZ"],
                     "ZZTo2L2Nu_13TeV_powheg_pythia8"                                                : xsecDict["ZZ_dilep"],
                     "ZZTo2L2Nu_13TeV_powheg_pythia8_ext1"                                           : xsecDict["ZZ_dilep"],
                     "ZZTo2L2Nu_TuneCP5_13TeV_powheg_pythia8"                                        : xsecDict["ZZ_dilep"],
                     "ZZTo2L2Q_13TeV_amcatnloFXFX_madspin_pythia8"                                   : xsecDict["ZZ_2l2q"],
                     "ZZTo2L2Q_TuneCUETP8M1_13TeV_amcatnloFXFX_madspin_pythia8"                      : xsecDict["ZZ_2l2q"],
                     "ZZTo2L2Q_TuneCP5_13TeV_amcatnloFXFX_madspin_pythia8"                           : xsecDict["ZZ_2l2q"],
+                    "ZZTo2Q2L_mllmin4p0_TuneCP5_13TeV-amcatnloFXFX-pythia8"                         : xsecDict["ZZ_2l2q"],
                     "ZZTo4L_13TeV_powheg_pythia8"                                                   : xsecDict["ZZ_4l"],
                     "ZZTo4L_TuneCP5_13TeV_powheg_pythia8"                                           : xsecDict["ZZ_4l"],
                     "ZZTo4L_DoubleScattering_13TeV-pythia8"                                         : xsecDict["ZZ_4l_2scatt"],
                     "ZZTo4L_TuneCP5_DoubleScattering_13TeV-pythia8"                                 : xsecDict["ZZ_4l_2scatt"],
+                    "ZZTo4L_M-1toInf_TuneCP5_13TeV_powheg_pythia8"                                  : xsecDict["ZZ_4l_mllmin1p0"],
 
                     "WWW_4F_TuneCUETP8M1_13TeV-amcatnlo-pythia8"                                    : xsecDict["WWW"],
                     "WWW_4F_TuneCP5_13TeV-amcatnlo-pythia8"                                         : xsecDict["WWW"],
@@ -167,8 +206,10 @@ xsecDictExtended = {"ST_tW_antitop_5f_NoFullyHadronicDecays_TuneEE5C_13TeV-powhe
                     "TTTo2L2Nu_TuneCP5up_13TeV-powheg-pythia8"                                      : xsecDict["ttbar_dilep"],
                     "TTTo2L2Nu_TuneCP5down_PSweights_13TeV-powheg-pythia8"                          : xsecDict["ttbar_dilep"],
                     "TTTo2L2Nu_TuneCP5up_PSweights_13TeV-powheg-pythia8"                            : xsecDict["ttbar_dilep"],
+                    "TTTo2L2Nu_TuneCP5CR1_13TeV-powheg-pythia8"                                     : xsecDict["ttbar_dilep"],
                     "TTTo2L2Nu_TuneCP5CR1_QCDbased_13TeV-powheg-pythia8"                            : xsecDict["ttbar_dilep"],
                     "TTTo2L2Nu_TuneCP5CR1_QCDbased_PSweights_13TeV-powheg-pythia8"                  : xsecDict["ttbar_dilep"],
+                    "TTTo2L2Nu_TuneCP5CR2_13TeV-powheg-pythia8"                                     : xsecDict["ttbar_dilep"],
                     "TTTo2L2Nu_TuneCP5CR2_GluonMove_13TeV-powheg-pythia8"                           : xsecDict["ttbar_dilep"],
                     "TTTo2L2Nu_TuneCP5CR2_GluonMove_PSweights_13TeV-powheg-pythia8"                 : xsecDict["ttbar_dilep"],
                     "TTTo2L2Nu_TuneCP5_PSweights_erdON_13TeV-powheg-pythia8"                        : xsecDict["ttbar_dilep"],
@@ -294,13 +335,14 @@ def GuessIsData(path):
 
 def GuessYear(path):
     thepath = path.lower()
-    if   any([el in thepath for el in ["5tev", "5p02"]]): return 5
-    elif 'run2018' in thepath: return 2018
-    elif 'run2017' in thepath: return 2017
-    elif 'run2016' in thepath: return 2016
-    elif '2018'    in thepath: return 2018
-    elif '2017'    in thepath: return 2017
-    elif '2016'    in thepath: return 2016
+    if   any([el in thepath for el in ["5tev", "5p02"]]): return "5"
+    elif "apv" in thepath.lower(): return "2016apv"
+    elif 'run2018' in thepath: return "2018"
+    elif 'run2017' in thepath: return "2017"
+    elif 'run2016' in thepath: return "2016"
+    elif '2018'    in thepath: return "2018"
+    elif '2017'    in thepath: return "2017"
+    elif '2016'    in thepath: return "2016"
 
     raise RuntimeError("FATAL: couldn't guess year from path " + path)
     return
@@ -478,18 +520,18 @@ def LaunchCRABTask(tsk):
 
     print "\n# Launching CRAB task for sample {d} that is data {isd}, year {y}, for prod. tag {p} using the DBS {dbs} with xsec {xs}".format(d = sampleName, isd = str(isData), dbs = thedbs, p = productionTag, xs = thexsec, y = year) + ((" and with options " + options) if len(options) else "")
     if test:
-        print "\t- This is a test submission! Only THREE (3) files will be processed!"
+        print "\t- This is a test submission! Only TWO (2) files will be processed!"
     #print "\nsyspath:", sys.path
     #print "\ncwd:", os.getcwd()
     #sys.exit()
 
     outputdir = "/store/user/" + username + "/nanoAOD_postprocessing/" + productionTag
     inFiles   = ['./crab_script.py', '../scripts/haddnano.py', './SlimFileIn.txt', './SlimFileOut.txt']
-    lumimask  = ""
+    lumiMask  = ""
     workarea  = "temp_postproc_" + productionTag
 
 
-    craboptions = "year:" + str(year)
+    craboptions = "year:" + year
     if options != "":
         craboptions += "," + options
     craboptions += ",datasetname:" + sampleName.split("/")[1]
@@ -503,24 +545,19 @@ def LaunchCRABTask(tsk):
 
     if (isData):
         # Set as MC... the only way the Count histogram works!! --> So we can compare with the numbers in DAS
-        if   year == 2016:
-            #lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions16/13TeV/ReReco/Final/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'
-            lumiMask = './lumijson/Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'
-            lumijson = 'Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'
-        elif year == 2017:
-            #lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions17/13TeV/ReReco/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON.txt'  # 41.29/fb
-            #lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions17/13TeV/ReReco/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt'
-            lumiMask = './lumijson/Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt'
-            #lumijson = 'Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON.txt'
-            lumijson = "Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt"
-        elif year == 2018:
-            #lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt'
-            lumiMask = './lumijson/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt'
-            lumijson = 'Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt'
+        if   year == "2016" or year.lower() == "2016apv":
+            #lumijson = 'Cert_271036-284044_13TeV_23Sep2016ReReco_Collisions16_JSON.txt'                         #### rereco
+            lumijson = 'Cert_271036-284044_13TeV_Legacy2016_Collisions16_JSON.txt'                              #### UL
+        elif year == "2017":
+            #lumijson = "Cert_294927-306462_13TeV_EOY2017ReReco_Collisions17_JSON_v1.txt"                        #### rereco
+            lumijson = "Cert_294927-306462_13TeV_UL2017_Collisions17_GoldenJSON.txt"                            #### UL
+        elif year == "2018":
+            #lumijson = 'Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt'     #### rereco
+            lumijson = 'Cert_314472-325175_13TeV_Legacy2018_Collisions18_JSON.txt'                              #### UL
         else:
             raise RuntimeError("FATAL: no lumimask and lumijson set for year " + str(year))
-
-        inFiles.append("./lumijson/" + lumijson)
+        lumiMask = "./lumijson/" + lumijson
+        inFiles.append(lumiMask)
 
     if verbose:
         print "\t- outputdir:", outputdir
@@ -549,27 +586,35 @@ def LaunchCRABTask(tsk):
     config.JobType.sendPythonFolder = True
 
     config.Data.inputDBS    = thedbs
-    config.Data.splitting   = 'FileBased'
-    #config.Data.splitting   = 'Automatic'
+#    config.Data.splitting   = 'Automatic'
+    #if sampleName != "/DYJetsToLL_M-50_TuneCP5_13TeV-madgraphMLM-pythia8/RunIISummer20UL17NanoAODv9-106X_mc2017_realistic_v9-v1/NANOAODSIM":
+        #config.Data.splitting = "EventAwareLumiBased"
+        ##config.Data.unitsPerJob = 200000
+        ##config.Data.unitsPerJob = 200000
+        #config.Data.unitsPerJob = 300000
+    ##    config.Data.totalUnits = 200000
+    #else:
+        #config.Data.splitting   = 'FileBased'
+        #config.Data.unitsPerJob = 1
+    config.Data.splitting   = 'FileBased' ################## NEVER CHANGE FOR NANOAOD POSTPROCESSING
     config.Data.unitsPerJob = 1
     config.Data.publication = False
-    if test:
-        config.Data.totalUnits  = 3
+#    if test:
+#        config.Data.totalUnits  = 2
+#        config.Data.unitsPerJob = 20000
+
     config.Data.allowNonValidInputDataset = True
 
     config.Data.outLFNDirBase = outputdir
     config.Data.inputDataset  = sampleName
-    config.Data.lumiMask      = lumimask
+    config.Data.lumiMask      = lumiMask
 
-
-    #config.Data.outputDatasetTag = productionTag + "_" + sampleName[0:min([70, len(sampleName)])].replace("/", "_") #### TODO: FIXXXXXXXX
-    config.Data.outputDatasetTag = sampleName.split("/")[2]  ## fix???
-
+    config.Data.outputDatasetTag = sampleName.split("/")[2]
 
     config.Site.storageSite = 'T2_ES_IFCA'
     #config.Site.storageSite = 'T2_CH_CERN'
     #config.Site.blacklist   = ['T2_BR_SPRACE', 'T2_US_Wisconsin', 'T1_RU_JINR', 'T2_RU_JINR', 'T2_EE_Estonia']
-    #config.Site.blacklist   = []
+    config.Site.blacklist   = []
     config.Site.ignoreGlobalBlacklist = True
 
 
@@ -583,8 +628,8 @@ def LaunchCRABTask(tsk):
 
     del config
     #CMSSWConfig.configurationCache.clear() #### NOTE: this is done in order to allow the parallelised CRAB job submission. For further
-                                           ## information, please check the code on [1], the commit of [2] and the discussion of [3].
-                                           ## [1]: https://github.com/dmwm/CRABClient/blob/master/src/python/CRABClient/JobType/CMSSWConfig.py
-                                           ## [2]: https://github.com/dmwm/CRABClient/commit/a50bfc2d1f32093b76ba80956ee6c5bd6d61259e
-                                           ## [3]: https://github.com/dmwm/CRABClient/pull/4824
+                                            ## information, please check the code on [1], the commit of [2] and the discussion of [3].
+                                            ## [1]: https://github.com/dmwm/CRABClient/blob/master/src/python/CRABClient/JobType/CMSSWConfig.py
+                                            ## [2]: https://github.com/dmwm/CRABClient/commit/a50bfc2d1f32093b76ba80956ee6c5bd6d61259e
+                                            ## [3]: https://github.com/dmwm/CRABClient/pull/4824
     return
