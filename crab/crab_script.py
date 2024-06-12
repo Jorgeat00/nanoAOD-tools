@@ -42,10 +42,10 @@ if era !='': print '>Found era: ', era
 
 #####CUT
 if not isData:
-  cut = '((nElectron + nMuon) >= 2 || (nGenDressedLepton >= 2))'
+  cut = '((nElectron + nMuon) >= 1 || (nGenDressedLepton >= 1))'
   #cut = '(nElectron >= 1 && nMuon >= 1)'
 else:
-  cut = '((nElectron + nMuon) >= 2)'
+  cut = '((nElectron + nMuon) >= 1)'
 
 ### Json file
 jsonfile = runsAndLumis()

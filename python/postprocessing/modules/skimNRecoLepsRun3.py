@@ -64,7 +64,8 @@ class skipNRecoLepsRun3(Module):
         # Loose electrons MVA - OR - loose cutbased
         for el in elec:
           #if el.pt > self.minelpt and abs(el.eta) < self.maxeleta: #and (el.cutBased >= 1): 
-          if el.cutBased >= 1: 
+          #if el.cutBased >= 1:
+          if True: 
             nlepgood += 1
             pts.append(el.pt)
 
@@ -72,10 +73,10 @@ class skipNRecoLepsRun3(Module):
         pts.sort() # sort by pT
         pts = pts[::-1] # Decreasing order
         if self.isData:
-          if nlepgood >= 2 and pts[0] >= minLeadingPt and pts[1] >= minSubleadingPt:
+          if nlepgood >= 1 and pts[0] >= minLeadingPt:# and pts[1] >= minSubleadingPt:
             event_pass = True
         else:
-          if (nlepgood >= 2 and pts[0] >= minLeadingPt and pts[1] >= minSubleadingPt) or nlepgengood >= 2:
+          if (nlepgood >= 1 and pts[0] >= minLeadingPt) or nlepgengood >=1: # and pts[1] >= minSubleadingPt) or nlepgengood >= 2:
             event_pass = True
 
         return event_pass
