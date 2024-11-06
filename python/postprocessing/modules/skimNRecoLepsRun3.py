@@ -54,7 +54,7 @@ class skipNRecoLepsRun3(Module):
 
         event_pass = False
         nlepgood = 0; pts = []
-        minLeadingPt = 15; minSubleadingPt = 10;
+        minLeadingPt = 10; minSubleadingPt = 10; #15 for analysis, 10 for SF
         # Loose muons, no iso
         for mu in muon:
           if True: # These are loose!

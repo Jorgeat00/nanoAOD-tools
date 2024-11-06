@@ -86,6 +86,7 @@ def GuessYear(path):
   elif '2017'    in path: return 17
   elif '2016'    in path: return 16
   elif '2022'    in path: return 22
+  elif '2023'    in path: return 23
 
 def CrateCrab_cfg(datasetName, isData = False, isTest = False, productionTag = 'prodTest', year = 0, options = '', outTier = 'T2_ES_IFCA'):
   ''' Creates a cfg file to send crab jobs to analyze a given dataset '''

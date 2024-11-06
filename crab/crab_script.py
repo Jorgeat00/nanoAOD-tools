@@ -36,7 +36,8 @@ if         '18' in sys.argv[-1] : year = 18
 elif       '16' in sys.argv[-1] : year = 16
 elif        '5' in sys.argv[-1] : year =  5
 elif       '22' in sys.argv[-1] : year = 22
-else                            : year = 22
+elif       '23' in sys.argv[-1] : year = 23
+else                            : year = 23
 era = '' if not 'era' in sys.argv[-1] else sys.argv[-1][sys.argv[-1].find('era')+3:sys.argv[-1].find('era')+4]
 if era !='': print '>Found era: ', era
 
@@ -76,6 +77,8 @@ if not isData:
     #mod.append()
   elif year == 22:
     pass
+  elif year == 23:
+    pass
 #elif year == 18 and era != '': 
 #  jecfile = 'Autumn18_Run%s_V8_DATA'%era
 #  jecarc  = 'Autumn18_V8_DATA'
@@ -104,7 +107,7 @@ if doTnP:
   #cut = 'nMuon >= 2 && Muon_pt[0] > 25 && Muon_pt[1] >= 12'
 else:
   if not doNotSkim: 
-    if year == 22:
+    if year == 22 or year == 23:
       mod.append(skimRecoLepsRun3(isData))
     elif year == 5:
       print("Adding 5 TeV skim!!")
