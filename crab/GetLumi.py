@@ -55,14 +55,14 @@ def GetDatasets():
       dataset, year, era = GetDatasetInfo(d)
       if not dataset in Datasets: continue
       if not int(Year) == year: continue
-      if verbose >= 2: print ' >> Found dir for dataset ' + dataset + ', [year, era] = [' + str(year) + ', ' + era + ']: ', d
+      if verbose >= 2: print(' >> Found dir for dataset ' + dataset + ', [year, era] = [' + str(year) + ', ' + era + ']: ', d)
       dirs.append(d)
   return dirs
 
 def CreateReports():
   ''' Execute crab report for all selected datasets... skips when dir/results exists '''
   f = GetDatasets()
-  print ' >> Creating lumi json reports for %i datasets...'%len(f)
+  print(' >> Creating lumi json reports for %i datasets...'%len(f))
   for d in f:
     if os.path.isfile(d + '/results/lumisToProcess.json'): continue
     os.system('crab report ' + d)
@@ -80,7 +80,7 @@ def GetLumiPath(pathToDataset, jsonName = 'lumisToProcess'):
     if not 'totrecorded' in line: continue
     else: l = outlines[i+2]
   if l == '': 
-    print 'ERROR: lumi not found...'
+    print('ERROR: lumi not found...')
     return
   return float(l.split('|')[-2])
 
@@ -94,7 +94,7 @@ def GetLumi():
        if iera == era and idataset == d:
          lumi = GetLumiPath(p) 
          totalLumi += lumi
-         print d + ' >> Run%i '%iyear + iera + ': ' + str(lumi)
-    print d + ' >> Total lumi: ', totalLumi
+         print(d + ' >> Run%i '%iyear + iera + ': ' + str(lumi))
+    print(d + ' >> Total lumi: ', totalLumi)
     
 GetLumi()

@@ -101,8 +101,8 @@ class jetmetUncertaintiesProducer(Module):
         if jesUncertainties[0] == "All":
             with open(self.jesInputFilePath+'/'+self.jesUncertaintyInputFileName) as f:
                 lines = f.read().split("\n")
-                sources = filter(lambda x: x.startswith("[") and x.endswith("]"), lines)
-                sources = map(lambda x: x[1:-1], sources)
+                sources = [x for x in lines if x.startswith("[") and x.endswith("]")]
+                sources = [x[1:-1] for x in sources]
                 self.jesUncertainties = sources
             
         if self.redoJEC :
@@ -116,12 +116,12 @@ class jetmetUncertaintiesProducer(Module):
         # load libraries for accessing JES scale factors and uncertainties from txt files
         for library in [ "libCondFormatsJetMETObjects", "libPhysicsToolsNanoAODTools" ]:
             if library not in ROOT.gSystem.GetLibraries():
-                print("Load Library '%s'" % library.replace("lib", ""))
+                print(("Load Library '%s'" % library.replace("lib", "")))
                 ROOT.gSystem.Load(library)
 
     def beginJob(self):
 
-        print("Loading jet energy scale (JES) uncertainties from file '%s'" % os.path.join(self.jesInputFilePath, self.jesUncertaintyInputFileName))
+        print(("Loading jet energy scale (JES) uncertainties from file '%s'" % os.path.join(self.jesInputFilePath, self.jesUncertaintyInputFileName)))
         #self.jesUncertainty = ROOT.JetCorrectionUncertainty(os.path.join(self.jesInputFilePath, self.jesUncertaintyInputFileName))
     
         self.jesUncertainty = {} 

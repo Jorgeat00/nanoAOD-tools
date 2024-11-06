@@ -80,8 +80,8 @@ def createJMECorrector(isMC=True, dataYear=2016, runPeriod="B", jesUncert="Total
   
     met_ = metBranchName
     
-    print 'JEC=', jecTag_, '\t JER=', jerTag_
-    print 'MET branch=', met_
+    print('JEC=', jecTag_, '\t JER=', jerTag_)
+    print('MET branch=', met_)
 
     jmeCorrections = None
     #jme corrections

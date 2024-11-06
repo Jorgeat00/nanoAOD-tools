@@ -24,10 +24,10 @@ class ElectronScaleSmear(Module):
         #Load it via ROOT ACLIC. NB: this creates the object file in the CMSSW directory,
         #causing problems if many jobs are working from the same CMSSW directory
         except Exception as e:
-          print "Could not load module via python, trying via ROOT", e
+          print("Could not load module via python, trying via ROOT", e)
           if "/EnergyScaleCorrection_cc.so" not in ROOT.gSystem.GetLibraries():
             plib = '%s/EnergyScaleCorrection.cc+' % pathToLib
-            print 'Loading C++ library from ' + plib
+            print('Loading C++ library from ' + plib)
             ROOT.gROOT.ProcessLine('.L ' + plib)
             dummy = ROOT.EnergyScaleCorrection
         self.eleCorr = ROOT.EnergyScaleCorrection(self.fileName, ROOT.EnergyScaleCorrection.ECALELF) 
@@ -37,7 +37,7 @@ class ElectronScaleSmear(Module):
           abseta = 0.#21*i
           r9 = 0
           escale = self.eleCorr.scaleCorr(run, et, abseta, r9)
-          print('escale = ', escale)
+          print(('escale = ', escale))
   
 
     def loadHisto(self,filename,hname):
@@ -65,7 +65,7 @@ class ElectronScaleSmear(Module):
         pass
     def analyze(self, event):
       """process event, return True (go to next module) or False (fail, go to next event)"""
-      run = long(event.run) if self.run == None else self.run
+      run = int(event.run) if self.run == None else self.run
       if self.doApplyCor:
         elecPtNom = []
         elecMassNom = []
@@ -88,7 +88,7 @@ class ElectronScaleSmear(Module):
           if not self.doApplyCor: return True
           # Apply scale to data
           if event.event == 3563827924:
-            print('[1] pt = ', p.Pt(), ', mass = ', p.M())
+            print(('[1] pt = ', p.Pt(), ', mass = ', p.M()))
           praw = p*(1./ecor) # Correct back
           et = praw.Et()
           abseta = abs(praw.Eta()+el.deltaEtaSC)
@@ -96,8 +96,8 @@ class ElectronScaleSmear(Module):
           #for run in range(306800, 307090): print('[',run,'] ', self.eleCorr.scaleCorr(run, et, abseta, r9))
           vEle = praw*escale
           if event.event == 3563827924:
-            print('escale = ', escale)
-            print('[2] pt = ', vEle.Pt(), ', mass = ', vEle.M())
+            print(('escale = ', escale))
+            print(('[2] pt = ', vEle.Pt(), ', mass = ', vEle.M()))
           elecPtNom.append(vEle.Pt())
           elecMassNom.append(vEle.M())
         else: # MC

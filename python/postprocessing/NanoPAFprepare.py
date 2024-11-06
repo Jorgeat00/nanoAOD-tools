@@ -3,7 +3,7 @@ import os, sys
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 from importlib import import_module
-from framework.postprocessor import PostProcessor
+from .framework.postprocessor import PostProcessor
 
 isData = sys.argv[-1] == 'data'
 if isData: print('is data!!!!!!!!!')
@@ -29,13 +29,13 @@ jecfile  = "Autumn18_V19_MC"
 
 ### MODULES
 ### Include modules to compute derivate quantities or calculate uncertainties
-from modules.jme.jetmetUncertainties import *
-from modules.common.puWeightProducer import *
-from modules.common.muonScaleResProducer import *
-from modules.common.ElectronScaleSmear import *
-from modules.skimNRecoLeps import *
-from modules.jme.jetRecalib import *
-from modules.jme.jetMetCorrelator import *
+from .modules.jme.jetmetUncertainties import *
+from .modules.common.puWeightProducer import *
+from .modules.common.muonScaleResProducer import *
+from .modules.common.ElectronScaleSmear import *
+from .modules.skimNRecoLeps import *
+from .modules.jme.jetRecalib import *
+from .modules.jme.jetMetCorrelator import *
 #from modules.addSUSYvar import *
 #mod = [puAutoWeight(), skimRecoLeps(), addSUSYvarsMC()] # countHistogramsProducer(), jetmetUncertainties2017All()
 mod = [elecScale5TeVData()]#jetmetUncertainties2018All(), jetMetCorrelations2018()] # jetRecalib(jecfile), countHistogramsProducer(), jetmetUncertainties2017All()

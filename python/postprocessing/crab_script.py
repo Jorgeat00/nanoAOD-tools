@@ -49,15 +49,15 @@ else:
   mod.append(skimRecoLeps())
   if doJECunc and not isData: mod.append(jetmetUncertainties2017All())
 
-print '>> Slim file: ', slimfile
-print '>> cut: ', cut
-print '>> ' + ('Is data!' if isData else 'Is MC!')
-print '>> ' + ('Creating a TnP Tree' if doTnP else 'Creating a skimmed nanoAOD file')
-if doJECunc: print '>> Adding JEC uncertainties'
+print('>> Slim file: ', slimfile)
+print('>> cut: ', cut)
+print('>> ' + ('Is data!' if isData else 'Is MC!'))
+print('>> ' + ('Creating a TnP Tree' if doTnP else 'Creating a skimmed nanoAOD file'))
+if doJECunc: print('>> Adding JEC uncertainties')
 
 #mod = [puAutoWeight(),jetmetUncertainties2017All(), skimRecoLeps()]
 p=PostProcessor(".",filepath,cut,slimfile,mod,provenance=True,fwkJobReport=True,jsonInput=jsonfile,outputbranchsel=slimfile) #jsonInput
 p.run()
 
-print "DONE"
+print("DONE")
 os.system("ls -lR")

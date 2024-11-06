@@ -3,13 +3,13 @@ import os, sys
 import ROOT
 ROOT.PyConfig.IgnoreCommandLineOptions = True
 from importlib import import_module
-from framework.postprocessor import PostProcessor
-import json
+from .framework.postprocessor import PostProcessor
+from . import json
 #from framework.crabhelper import inputFiles,runsAndLumis
 
 isData = sys.argv[-1] == 'data'
 dataverbose = 'Is data!!' if isData else 'is MC!!'
-print dataverbose
+print(dataverbose)
 
 jsonfile = ''
 year = 17
@@ -29,7 +29,7 @@ if isData:
   jsn = open(jsonfile, 'r')
   jsonInput = json.loads(jsn.read())
   jsn.close()
-  print 'Using json: ', jsonfile
+  print('Using json: ', jsonfile)
 
 else: 
   if   year == 17:
@@ -48,10 +48,10 @@ slimfile = "SlimFileTnP.txt"
 
 ### MODULES
 ### Include modules to compute derivate quantities or calculate uncertainties
-from modules.jme.jetmetUncertainties import *
-from modules.common.puWeightProducer import *
-from modules.skimNRecoLeps import *
-from modules.addTnPvarMuon import *
+from .modules.jme.jetmetUncertainties import *
+from .modules.common.puWeightProducer import *
+from .modules.skimNRecoLeps import *
+from .modules.addTnPvarMuon import *
 
 mod = [puAutoWeight()] if not isData else []
 if isData:

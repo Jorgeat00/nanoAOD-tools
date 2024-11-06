@@ -18,7 +18,7 @@ if not HasVomsProxy():
 
 # Check if dasgoclient is available
 if not os.path.isfile('/cvmfs/cms.cern.ch/common/dasgoclient'):
-  print '[DASsearch] Hmmm... dasgoclient seems not to be available in "/cvmfs/cms.cern.ch/common/dasgoclient"...'
+  print('[DASsearch] Hmmm... dasgoclient seems not to be available in "/cvmfs/cms.cern.ch/common/dasgoclient"...')
   exit()
 
 def GetDasGoClientCommand(opt=''):
@@ -32,7 +32,7 @@ def ReadDatasetsFromFile(fname):
   datasets = []
   if os.path.isfile(fname):
     f = open(fname)
-    print('Opening file: %s'%fname)
+    print(('Opening file: %s'%fname))
     for l in f.readlines():
       if l.startswith('#'): continue
       if '#' in l: l = l.split('#')[0]
@@ -45,7 +45,7 @@ def ReadDatasetsFromFile(fname):
 def GetEvDic(l):
   for d2 in l:
     for d in d2['dataset']:
-      if 'nevents' in d.keys(): 
+      if 'nevents' in list(d.keys()): 
         return d
   return {}
 
@@ -55,7 +55,7 @@ def CheckDatasets(datasets):
     match = os.popen(command%d).read()
     match = match.replace('\n', '')
     warn = '\033[0;32mOK       \033[0m' if match == d else '\033[0;31mNOT FOUND\033[0m'
-    print('[%s] %s'%(warn, d))
+    print(('[%s] %s'%(warn, d)))
 
 def GetFilesFromDatasets(datasets, verbose=0):
   if isinstance(datasets, list) and len(datasets) == 1: datasets = datasets[0]
@@ -69,7 +69,7 @@ def GetFilesFromDatasets(datasets, verbose=0):
     if match.endswith('\n'): match=match[:-1]
     match = match.replace(' ', '').split('\n')
     if verbose: 
-      for d in match: print d
+      for d in match: print(d)
     return match
     
 def GetDatasetNumbers(dataset, options='', verbose=0):
@@ -82,23 +82,23 @@ def GetDatasetNumbers(dataset, options='', verbose=0):
     l = eval(match)
     fdic = GetEvDic(l)
     if dic == {}: 
-      print('\nWARNING: not found categories of dataset ', d)
+      print(('\nWARNING: not found categories of dataset ', d))
       return dic
     dic['events'] += fdic['nevents']
     dic['nfiles'] += fdic['nfiles']
     dic['size'  ] += fdic['size']
     size    = fdic['size']/1e6
   if   options.lower() in ['events', 'evt', 'event', 'nevents', 'nevent']: 
-    if verbose: print('Events = ', dic['events'])
+    if verbose: print(('Events = ', dic['events']))
     return dic['events']
   elif options.lower() in ['nfiles']:
-    if verbose: print('Number of files = ', dic['nfiles'])
+    if verbose: print(('Number of files = ', dic['nfiles']))
     return dic['nfiles']
   elif options.lower() in ['size', 'store', 'storage']:
-    if verbose: print('Size = ', dic['size'])
+    if verbose: print(('Size = ', dic['size']))
     return dic['size']
   else:
-    if verbose: print('nevets = %i, nfiles = %i, size = %1.2f MB'%(dic['events'], dic['nfiles'], dic['size']))
+    if verbose: print(('nevets = %i, nfiles = %i, size = %1.2f MB'%(dic['events'], dic['nfiles'], dic['size'])))
     return dic
 
 def main():

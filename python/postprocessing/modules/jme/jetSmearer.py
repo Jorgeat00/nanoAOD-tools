@@ -38,7 +38,7 @@ class jetSmearer(Module):
         # load libraries for accessing JER scale factors and uncertainties from txt files
         for library in [ "libCondFormatsJetMETObjects", "libPhysicsToolsNanoAODTools" ]:
             if library not in ROOT.gSystem.GetLibraries():
-                print("Load Library '%s'" % library.replace("lib", ""))
+                print(("Load Library '%s'" % library.replace("lib", "")))
                 ROOT.gSystem.Load(library)
         
         self.puppiJMRFile = ROOT.TFile.Open(os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/jme/puppiSoftdropResol.root")
@@ -48,9 +48,9 @@ class jetSmearer(Module):
     def beginJob(self):
         # initialize JER scale factors and uncertainties
         # (cf. PhysicsTools/PatUtils/interface/SmearedJetProducerT.h )
-        print("Loading jet energy resolutions (JER) from file '%s'" % os.path.join(self.jerInputFilePath, self.jerInputFileName))
+        print(("Loading jet energy resolutions (JER) from file '%s'" % os.path.join(self.jerInputFilePath, self.jerInputFileName)))
         self.jer = ROOT.PyJetResolutionWrapper(os.path.join(self.jerInputFilePath, self.jerInputFileName))
-        print("Loading JER scale factors and uncertainties from file '%s'" % os.path.join(self.jerInputFilePath, self.jerUncertaintyInputFileName))
+        print(("Loading JER scale factors and uncertainties from file '%s'" % os.path.join(self.jerInputFilePath, self.jerUncertaintyInputFileName)))
         self.jerSF_and_Uncertainty = ROOT.PyJetResolutionScaleFactorWrapper(os.path.join(self.jerInputFilePath, self.jerUncertaintyInputFileName))
         
     def endJob(self):
@@ -60,11 +60,11 @@ class jetSmearer(Module):
     def setSeed(self,event):
         """Set seed deterministically."""
         # (cf. https://github.com/cms-sw/cmssw/blob/master/PhysicsTools/PatUtils/interface/SmearedJetProducerT.h)
-        runnum  = long(event.run) << 20
-        luminum = long(event.luminosityBlock) << 10
+        runnum  = int(event.run) << 20
+        luminum = int(event.luminosityBlock) << 10
         evtnum  = event.event
-        jet0eta = long(event.Jet_eta[0]/0.01 if event.nJet>0 else 0)
-        seed    = 1L + runnum + evtnum + luminum + jet0eta
+        jet0eta = int(event.Jet_eta[0]/0.01 if event.nJet>0 else 0)
+        seed    = 1 + runnum + evtnum + luminum + jet0eta
         self.rnd.SetSeed(seed)
         
     
@@ -94,7 +94,7 @@ class jetSmearer(Module):
         #--------------------------------------------------------------------------------------------
 
         if not (jet.Perp() > 0.):
-            print("WARNING: jet pT = %1.1f !!" % jet.Perp())
+            print(("WARNING: jet pT = %1.1f !!" % jet.Perp()))
             return ( jet.Perp(), jet.Perp(), jet.Perp() )
         
         #--------------------------------------------------------------------------------------------
@@ -179,7 +179,7 @@ class jetSmearer(Module):
         #--------------------------------------------------------------------------------------------
         
         if not (jet.M() > 0.):
-            print("WARNING: jet m = %1.1f !!" % jet.M())
+            print(("WARNING: jet m = %1.1f !!" % jet.M()))
             return ( jet.M(), jet.M(), jet.M() )
         
         #--------------------------------------------------------------------------------------------
@@ -190,7 +190,7 @@ class jetSmearer(Module):
         enum_shift_down      = 1
         #--------------------------------------------------------------------------------------------
         
-        jet_m_sf_and_uncertainty = dict( zip( [enum_nominal, enum_shift_up, enum_shift_down], self.jmr_vals ) )
+        jet_m_sf_and_uncertainty = dict( list(zip( [enum_nominal, enum_shift_up, enum_shift_down], self.jmr_vals )) )
         
         smear_vals = {}
         if genJet:

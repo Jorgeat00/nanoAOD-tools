@@ -6,8 +6,8 @@ def GetH():
   t = f.Get('tree')
   t.Project("SumWeights", "0.5", "genWeight")
   o = gROOT.FindObject('SumWeights')
-  print type(o)
-  print 'SumOfWeights: ', o.Integral()
+  print(type(o))
+  print('SumOfWeights: ', o.Integral())
   #return h
 
 GetH()

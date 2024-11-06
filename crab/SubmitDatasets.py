@@ -107,9 +107,9 @@ def CrateCrab_cfg(datasetName, isData = False, isTest = False, productionTag = '
   lumiMask = ''
   crabScript = 'crab_script.py'
   crabname = 'crab_script_' + productionTag
-  print("year = ", year)
-  print("isData = ", isData)
-  print("options = ", options)
+  print(("year = ", year))
+  print(("isData = ", isData))
+  print(("options = ", options))
   craboptions = '%s,%i'%(options,year) if not isData else 'data,%s,%i'%(options,year)
   era = GetEra(datasetName, year, isData)
   if era != '': craboptions += ',era%s'%era
@@ -136,7 +136,7 @@ def CrateCrab_cfg(datasetName, isData = False, isTest = False, productionTag = '
       lumijson = 'Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt'
     #https://twiki.cern.ch/twiki/bin/view/CMS/PdmV2018Analysis#DATA
     elif year == 5:
-      print 'Runing on 5.02 TeV DATA!!'
+      print('Runing on 5.02 TeV DATA!!')
       lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions17/5TeV/ReReco/Cert_306546-306826_5TeV_EOY2017ReReco_Collisions17_JSON.txt'
       lumijson = 'Cert_306546-306826_5TeV_EOY2017ReReco_Collisions17_JSON.txt'
 
@@ -194,7 +194,7 @@ def CrateCrab_cfg(datasetName, isData = False, isTest = False, productionTag = '
   f.write(text)
   f.close()
   os.system('chmod a+x ' + filename)
-  if verbose: print '   >> Created cfg file: ', filename
+  if verbose: print('   >> Created cfg file: ', filename)
 
 def ReadLines(path):
   lines = []
@@ -215,18 +215,18 @@ def ReadLines(path):
 def SubmitDatasets(path, isTest = False, prodName = 'prodTest', doPretend = False, options = '', outTier='T2_ES_IFCA'):
   path = CheckPathDataset(path)
   if(path == ''):
-    print 'ERROR: dataset not found'
+    print('ERROR: dataset not found')
     return
   isData = GuessIsData(path)
   year   = GuessYear(path)
   if verbose: 
-    if isData: print 'Opening path: ', path, '(DATA)'
-    else: print  'Opening path: ', path, '(MC)'
+    if isData: print('Opening path: ', path, '(DATA)')
+    else: print('Opening path: ', path, '(MC)')
   for line in ReadLines(path):
     cfgName = GetName_cfg(line, isData)
-    print 'line = ', line
-    if verbose: print 'Creating cfg file for dataset: ', line
-    if verbose: print '%s!! year = %s, options = %s'%('Data' if isData else 'MC', year, options) 
+    print('line = ', line)
+    if verbose: print('Creating cfg file for dataset: ', line)
+    if verbose: print('%s!! year = %s, options = %s'%('Data' if isData else 'MC', year, options)) 
     CrateCrab_cfg(line, isData, isTest, prodName, year, options, outTier)
     if not doPretend:
       os.system('crab submit -c ' + cfgName)
@@ -248,32 +248,32 @@ datasetName = ''
 options = ''
 
 if narg == 0:
-  print ' > Usage:'
-  print ' >>> python SubmitDatasets.py NameOfDatasetFile --option1 arg1 --option2'
-  print ' '
-  print ' > Options:'
-  print ' > --test'
-  print ' >   Sends a job per sample'
-  print ' > --prodName name'
-  print ' >   Set a name for the production. Example: may23'
-  print ' > --verbose (or -v)'
-  print ' > --dataset /dataset/name/'
-  print ' >   Runs on a given dataset'
-  print ' > --pretend'
-  print ' >   Only creates the cfg file; does not send jobs'
-  print ' > --options'
-  print ' >   Add different options... as --options "TnP" or --options "2018,data"'
-  print ' > --outTier'
-  print ' >   Select your Tier... by default: T2_ES_IFCA'
-  print ' '
-  print ' > Examples:'
-  print ' >   python SubmitDatasets.py datasets/data2018.txt -v --prodName may28'
-  print ' >   python SubmitDatasets.py datasets/data2018_TnP.txt -v --prodName may28 --options "TnP,2018,data"'
-  print ' >   python SubmitDatasets.py --dataset /TT_TuneCUETP8M2T4_mtop1665_13TeV-powheg-pythia8/RunIISummer16NanoAOD-PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v1/NANOAODSIM -v --test'
-  print ' >   python SubmitDatasets.py --dataset /TT_TuneCUETP8M2T4_mtop1665_13TeV-powheg-pythia8/RunIISummer16NanoAOD-PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v1/NANOAODSIM -v --pretend'
+  print(' > Usage:')
+  print(' >>> python SubmitDatasets.py NameOfDatasetFile --option1 arg1 --option2')
+  print(' ')
+  print(' > Options:')
+  print(' > --test')
+  print(' >   Sends a job per sample')
+  print(' > --prodName name')
+  print(' >   Set a name for the production. Example: may23')
+  print(' > --verbose (or -v)')
+  print(' > --dataset /dataset/name/')
+  print(' >   Runs on a given dataset')
+  print(' > --pretend')
+  print(' >   Only creates the cfg file; does not send jobs')
+  print(' > --options')
+  print(' >   Add different options... as --options "TnP" or --options "2018,data"')
+  print(' > --outTier')
+  print(' >   Select your Tier... by default: T2_ES_IFCA')
+  print(' ')
+  print(' > Examples:')
+  print(' >   python SubmitDatasets.py datasets/data2018.txt -v --prodName may28')
+  print(' >   python SubmitDatasets.py datasets/data2018_TnP.txt -v --prodName may28 --options "TnP,2018,data"')
+  print(' >   python SubmitDatasets.py --dataset /TT_TuneCUETP8M2T4_mtop1665_13TeV-powheg-pythia8/RunIISummer16NanoAOD-PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v1/NANOAODSIM -v --test')
+  print(' >   python SubmitDatasets.py --dataset /TT_TuneCUETP8M2T4_mtop1665_13TeV-powheg-pythia8/RunIISummer16NanoAOD-PUMoriond17_05Feb2018_94X_mcRun2_asymptotic_v2-v1/NANOAODSIM -v --pretend')
 
 def __main__():
-  print 'Executing main'
+  print('Executing main')
   import argparse
   parser = argparse.ArgumentParser(description='Submit jobs to crab')
   parser.add_argument('--verbose','-v'    , action='store_true'  , help = 'Activate the verbosing')
@@ -301,11 +301,11 @@ def __main__():
   
   
   if doDataset:
-    if verbose: print 'Creating cfg file for dataset: ', datasetName
+    if verbose: print('Creating cfg file for dataset: ', datasetName)
     doData = GuessIsData(datasetName)
     if year == 0: year = GuessYear(datasetName)
-    print ' >> Is data?: ', doData
-    print ' >> Year    : ', year
+    print(' >> Is data?: ', doData)
+    print(' >> Year    : ', year)
     cfgName = GetName_cfg(datasetName, doData)
     CrateCrab_cfg(datasetName, doData, dotest, prodName, year, options,outTier)
     if not doPretend:

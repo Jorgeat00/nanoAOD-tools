@@ -39,7 +39,7 @@ elif       '22' in sys.argv[-1] : year = 22
 elif       '23' in sys.argv[-1] : year = 23
 else                            : year = 23
 era = '' if not 'era' in sys.argv[-1] else sys.argv[-1][sys.argv[-1].find('era')+3:sys.argv[-1].find('era')+4]
-if era !='': print '>Found era: ', era
+if era !='': print('>Found era: ', era)
 
 #####CUT
 if not isData:
@@ -90,7 +90,7 @@ elif year == 5:
   pass
 
 if jecfile != '': 
-  print 'JEC file: ', jecfile
+  print('JEC file: ', jecfile)
   mod.append(jetRecalib(jecfile, jecarc, redoJEC = True, year=year))
 
 if doTnP:
@@ -144,12 +144,12 @@ else:
       elif year == 18: mod.append(elecUnc2018MC())
     elif year == 17: mod.append(elecScale2017Data())
 
-print( '>> Slim file in : ', slimfilein)
-print( '>> Slim file out: ', slimfileout)
-print( '>> cut: ', cut)
-print( '>> ' + ('Is data!' if isData else 'Is MC!'))
-print( '>> ' + ('Creating a TnP Tree' if doTnP else 'Creating a skimmed nanoAOD file'))
-print( '>> Mod: ', mod)
+print(( '>> Slim file in : ', slimfilein))
+print(( '>> Slim file out: ', slimfileout))
+print(( '>> cut: ', cut))
+print(( '>> ' + ('Is data!' if isData else 'Is MC!')))
+print(( '>> ' + ('Creating a TnP Tree' if doTnP else 'Creating a skimmed nanoAOD file')))
+print(( '>> Mod: ', mod))
 if doJECunc: print( '>> Adding JEC uncertainties')
 
 #mod = [puAutoWeight(),jetmetUncertainties2017All(), skimRecoLeps()]

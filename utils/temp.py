@@ -29,7 +29,7 @@ def haddProduction(dirname, prodname):
         dirName  = path + '/' + s
         sampleName = CraftSampleName(treeName)
         #print 'Looking for ' + treeName + ' in ' + dirName + '...'
-        print 'Adding output sample: ', sampleName
+        print('Adding output sample: ', sampleName)
 
 
 haddProduction('prueba', 'jun10')

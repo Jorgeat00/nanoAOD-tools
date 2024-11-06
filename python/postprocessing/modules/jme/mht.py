@@ -32,7 +32,7 @@ class mhtProducer(Module):
             mht += lep.p4()
         for lep in filter(self.elSel,electrons):
             mht += lep.p4()
-        goodjet = [ 0 for i in xrange(njets) ]
+        goodjet = [ 0 for i in range(njets) ]
         for i,j in enumerate(jets):
             if not self.jetSel(j): continue
             if j.muonIdx1 != -1 and j.muonIdx1 < njets:

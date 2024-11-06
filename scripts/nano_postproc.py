@@ -37,7 +37,7 @@ if __name__ == "__main__":
         for name in dir(obj):
             if name[0] == "_": continue
             if name in selnames:
-                print "Loading %s from %s " % (name, mod)
+                print("Loading %s from %s " % (name, mod))
                 modules.append(getattr(obj,name)())
     if options.noOut:
         if len(modules) == 0: 

@@ -12,7 +12,7 @@ def mk_safe(fct, *args):
         return fct(*args)
     except Exception as e:
         if any('Error in function boost::math::erf_inv' in arg for arg in e.args):
-            print 'WARNING: catching exception and returning -1. Exception arguments: %s' % e.args
+            print('WARNING: catching exception and returning -1. Exception arguments: %s' % e.args)
             return -1.
         else:
             raise e
@@ -24,7 +24,7 @@ class muonScaleResProducer(Module):
         p_roccor = p_postproc + '/data/' + rc_dir
         if "/RoccoR_cc.so" not in ROOT.gSystem.GetLibraries():
             p_helper = '%s/RoccoR.cc' % p_roccor
-            print 'Loading C++ helper from ' + p_helper
+            print('Loading C++ helper from ' + p_helper)
             ROOT.gROOT.ProcessLine('.L ' + p_helper)
         self._roccor = ROOT.RoccoR(p_roccor + '/' + rc_corrections)
 

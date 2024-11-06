@@ -20,7 +20,7 @@ class JetSysColl :
         return self.jets_
     
     def __getitem__(self, syst):
-        if syst in self.coll_.keys() : 
+        if syst in list(self.coll_.keys()) : 
             return self.coll_[syst]
         else :
             return self.coll_[0]         # If this systematic does not exist, use nominal

@@ -11,7 +11,7 @@ doCalculateJecLepAwareFromNanoAOD = True
 
 class addTnPvarMuon(Module):
     def __init__(self, isdata = False, year = 17, recalibjets = '', era = ''):
-      print 'Initializing addTnPvarMuon...'
+      print('Initializing addTnPvarMuon...')
       self.kProbePt = 12
       self.kTagPt   = 29
       self.kTagIso  = 0.20
@@ -99,7 +99,7 @@ class addTnPvarMuon(Module):
       f = 1 - c # factor to go to rawpt
       p4j = jet.p4(); j = ROOT.TLorentzVector(p4j.Px(),p4j.Py(),p4j.Pz(),p4j.E())
       if ((j*c-l).Rho()<1e-4): return l
-      print "origpt = %1.2f, mod pt = %1.2f"%(j.Pt(), (j*f).Pt())
+      print("origpt = %1.2f, mod pt = %1.2f"%(j.Pt(), (j*f).Pt()))
       if L1corr == 0: L1corr = 0.1
       j = (j*f - l*(1.0/L1corr)) * (1/f) + l
       return j
@@ -124,7 +124,7 @@ class addTnPvarMuon(Module):
         # For jet re-calibrating
         fileNameJEC = self.filenameJEC
         jesInputFilePath = os.environ['CMSSW_BASE'] + "/src/PhysicsTools/NanoAODTools/data/jme/" # By default
-        print 'Using the file: ', jesInputFilePath+fileNameJEC
+        print('Using the file: ', jesInputFilePath+fileNameJEC)
         return JetReCalibrator(fileNameJEC, jetType , doRes, jesInputFilePath, upToLevel=1)
 
     def analyze(self, event):
@@ -203,7 +203,7 @@ class addTnPvarMuon(Module):
         if len(pair) == 0: return False # events with 1 or 2 pairs!
 
         rho = event.fixedGridRhoFastjetAll
-        print "[%i] rho = %1.2f" %(self.i, rho)
+        print("[%i] rho = %1.2f" %(self.i, rho))
         self.i += 1
 
         # Set variables for tag, probe and event
@@ -303,18 +303,18 @@ class addTnPvarMuon(Module):
             else:
               j = jet[jetId]
               corr = self.jetReCalibrator.getCorrection(j, rho)
-              print 'corr = %1.2f, jet Pt = %1.2f' %(corr, j.pt)
+              print('corr = %1.2f, jet Pt = %1.2f' %(corr, j.pt))
               ptRel = self.ptRelv2(muon[pi], j, corr)
-              print 'ptRel = ', ptRel
+              print('ptRel = ', ptRel)
               ptRatio = muon[pi].pt/self.jetLepAwareJEC(muon[pi], j, corr).Pt()
-              print 'ptRatio = ', ptRatio
+              print('ptRatio = ', ptRatio)
 
           # Definitions from https://twiki.cern.ch/twiki/bin/viewauth/CMS/SUSLeptonSF
           passMultiIsoL =       MiniRelIso < 0.20 and (ptRatio > 0.69 or ptRel > 6.0) 
           passMultiIsoM =       MiniRelIso < 0.16 and (ptRatio > 0.76 or ptRel > 7.2) 
           passMultiIsoM2017   = MiniRelIso < 0.12 and (ptRatio > 0.80 or ptRel > 7.5) 
           passMultiIsoM2017v2 = MiniRelIso < 0.11 and (ptRatio > 0.74 or ptRel > 6.8) 
-          print 'passMultiIsoL = ', passMultiIsoL
+          print('passMultiIsoL = ', passMultiIsoL)
           self.out.fillBranch("Probe_passMultiIsoL",       passMultiIsoL)
           self.out.fillBranch("Probe_passMultiIsoM",       passMultiIsoM)
           self.out.fillBranch("Probe_passMultiIsoM2017",   passMultiIsoM2017)

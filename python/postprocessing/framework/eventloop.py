@@ -50,7 +50,7 @@ def eventLoop(modules, inputFile, outputFile, inputTree, wrappedOutputTree, maxE
     t0 = time.clock(); tlast = t0; doneEvents = 0; acceptedEvents = 0
     entries = inputTree.entries
 
-    for i in xrange(entries) if eventRange == None else eventRange:
+    for i in range(entries) if eventRange == None else eventRange:
         if maxEvents > 0 and i >= maxEvents-1: break
         e = Event(inputTree,i)
         clearExtraBranches(inputTree)

@@ -15,17 +15,17 @@ class pcol:
     white = '\033[1;97m'
 
 def printerror(message):
-  print '\033[1;41mERROR\033[0m \033[91m' + message + '\033[0m'
+  print('\033[1;41mERROR\033[0m \033[91m' + message + '\033[0m')
 
 def printwarning(message):
-  print '\033[1;43mWARNING\033[0m \033[93m' + message + '\033[0m'
+  print('\033[1;43mWARNING\033[0m \033[93m' + message + '\033[0m')
 
 def hadd(rootfiles, outname, index, outdir = '/'):
   out = outdir + 'Tree_' + outname + '_' + str(index) + '.root'
   inp = ''
   for f in rootfiles: inp += f + ' '
   command = 'hadd ' + out + ' ' + inp
-  print ' >> ' + pcol.green + 'Hadding ', len(rootfiles), ' files into ' + pcol.red , out + pcol.end
+  print(' >> ' + pcol.green + 'Hadding ', len(rootfiles), ' files into ' + pcol.red , out + pcol.end)
   #print '    ' + pcol.red + command + pcol.end
   os.system(command)
 
@@ -41,7 +41,7 @@ def haddtrees(dirname, outname, outdir = './', maxsize = 5000):
       command = "ls -lk " + fname + " $totfile | awk '{print $5}'"
       out = float(os.popen(command).read())/1000000
       size += out
-      print 'Adding ' + pcol.orange + name + pcol.end + ' (' + pcol.cyan + '%1.0f MB' %(out) + pcol.end + '). ' + pcol.white + 'Total: %1.0f MB' %(size) + pcol.end
+      print('Adding ' + pcol.orange + name + pcol.end + ' (' + pcol.cyan + '%1.0f MB' %(out) + pcol.end + '). ' + pcol.white + 'Total: %1.0f MB' %(size) + pcol.end)
       if size < maxsize: rootfiles.append(fname)
       else:
         hadd(rootfiles, outname, index, outdir)
@@ -50,7 +50,7 @@ def haddtrees(dirname, outname, outdir = './', maxsize = 5000):
         size = out
         rootfiles.append(fname)
   if len(rootfiles) > 0:
-    print 'Still ', len(rootfiles), ' files not merged, ', size, ' MB. Merging...'
+    print('Still ', len(rootfiles), ' files not merged, ', size, ' MB. Merging...')
     hadd(rootfiles, outname, index, outdir)
     index += 1
   #PrintCount(outname)
@@ -106,15 +106,15 @@ def GetCount(files, sCount = 'Count', sSumOfWeights = 'SumWeights', treename = '
 def PrintCount(outname, outname2 = ''):
   files = GetFiles(outname, outname2)
   if outname2 != '' and outname[-1] != '/': outname += '/'
-  print pcol.purple + ' ## Serching for samples with name: ' + pcol.red + outname+outname2 + pcol.purple + "..." + pcol.end 
+  print(pcol.purple + ' ## Serching for samples with name: ' + pcol.red + outname+outname2 + pcol.purple + "..." + pcol.end) 
   if len(files) == 0:
     printerror('Files not found...')
   else:
-    print ' >> ' + pcol.blue + 'Total number of files:      ' + pcol.green, len(files),  pcol.end
+    print(' >> ' + pcol.blue + 'Total number of files:      ' + pcol.green, len(files),  pcol.end)
     entries, count, sumweights = GetCount(files)
-    print ' >> ' + pcol.blue + 'Total processed (count):    ' + pcol.green, count,      pcol.end
-    print ' >> ' + pcol.blue + 'Sum of gen weights:         ' + pcol.green, sumweights, pcol.end
-    print ' >> ' + pcol.blue + 'Total entries (after skim): ' + pcol.green, entries,    pcol.end
+    print(' >> ' + pcol.blue + 'Total processed (count):    ' + pcol.green, count,      pcol.end)
+    print(' >> ' + pcol.blue + 'Sum of gen weights:         ' + pcol.green, sumweights, pcol.end)
+    print(' >> ' + pcol.blue + 'Total entries (after skim): ' + pcol.green, entries,    pcol.end)
 
 def CraftSampleName(name):
   # Deal with 'ext' in the end
@@ -151,7 +151,7 @@ def haddProduction(dirname, prodname):
         dirnames.append(dirName)
         samplenames.append(sampleName)
         #print 'Looking for ' + treeName + ' in ' + dirName + '...'
-        print ' >> Found sample: ' + pcol.red + treeName + pcol.white + ' (' + pcol.cyan + sampleName + pcol.white + ')' + pcol.end
+        print(' >> Found sample: ' + pcol.red + treeName + pcol.white + ' (' + pcol.cyan + sampleName + pcol.white + ')' + pcol.end)
         #print '    In: ' + pcol.purple + dirName + pcol.end
   return [dirnames, samplenames]
 

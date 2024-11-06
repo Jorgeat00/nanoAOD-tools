@@ -11,14 +11,14 @@ try:
   ROOT.gSystem.Load("libPhysicsToolsNanoAODTools")
   dummy = ROOT.EnergyScaleCorrection
 except Exception as e:
-  print "Could not load module via python, trying via ROOT", e
+  print("Could not load module via python, trying via ROOT", e)
   if "/EnergyScaleCorrection_cc.so" not in ROOT.gSystem.GetLibraries():
-    print "Load C++ Worker"
+    print("Load C++ Worker")
     ROOT.gROOT.ProcessLine(".L %s/src/PhysicsTools/NanoAODTools/src/EnergyScaleCorrection.cc++" % os.environ['CMSSW_BASE'])
   dummy = ROOT.EnergyScaleCorrection
 
 corrFiles = "%s/src/PhysicsTools/NanoAODTools/python/postprocessing/data/elecES/%s" %(os.environ['CMSSW_BASE'], fname)
-print corrFiles
+print(corrFiles)
 eleCorr = ROOT.EnergyScaleCorrection(corrFiles, ROOT.EnergyScaleCorrection.ECALELF); 
 run = 319337
 r9  = 0.8999023
@@ -29,6 +29,6 @@ err = eleCorr.scaleCorrUncert(run, eT, abseta, r9);
 eleSmear    = eleCorr.smearingSigma(run, eT, abseta, r9, 12, 0, 0.)
 eleSmearUp  = eleCorr.smearingSigma(run, eT, abseta, r9, 12, 1, 0.)
 eleSmearDo  = eleCorr.smearingSigma(run, eT, abseta, r9, 12,-1, 0.)
-print 'cor = ', cor
-print 'err = ', err
-print 'Smear: [up, nom, do] = [%1.8f, %1.8f, %1.8f]'%(eleSmearUp, eleSmear, eleSmearDo)
+print('cor = ', cor)
+print('err = ', err)
+print('Smear: [up, nom, do] = [%1.8f, %1.8f, %1.8f]'%(eleSmearUp, eleSmear, eleSmearDo))

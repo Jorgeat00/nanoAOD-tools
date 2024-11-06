@@ -32,7 +32,7 @@ class PostProcessor :
 	self.hsumofweights = ROOT.TH1F("SumWeights", "SumWeights", 1, 0, 1)
 	self.hsmscount = ROOT.TH2F("SMSCount", "SMSCount", 2000, -0.5, 1999.5, 2000, -0.5, 1999.5)
 	if self.jobReport and not self.haddFileName :
-		print "Because you requested a FJR we assume you want the final hadd. No name specified for the output file, will use tree.root"
+		print("Because you requested a FJR we assume you want the final hadd. No name specified for the output file, will use tree.root")
 		self.haddFileName="tree.root"
  	self.branchsel = BranchSelection(branchsel) if branchsel else None 
         self.outputbranchsel = BranchSelection(outputbranchsel) if outputbranchsel else None
@@ -51,7 +51,7 @@ class PostProcessor :
                 else: raise RuntimeError("Unsupported compression %s" % algo)
             else:
                 compressionLevel = 0 
-	    print "Will write selected trees to "+self.outputDir
+	    print("Will write selected trees to "+self.outputDir)
             if not self.justcount:
                 if not os.path.exists(self.outputDir):
                     os.system("mkdir -p "+self.outputDir)
@@ -100,10 +100,10 @@ class PostProcessor :
 	    # pre-skimming
 	    elist,jsonFilter = preSkim(inTree, self.json, self.cut)
 	    if self.justcount:
-		print 'Would select %d entries from %s'%(elist.GetN() if elist else inTree.GetEntries(), fname)
+		print('Would select %d entries from %s'%(elist.GetN() if elist else inTree.GetEntries(), fname))
 		continue
 	    else:
-		print 'Pre-select %d entries out of %s '%(elist.GetN() if elist else inTree.GetEntries(),inTree.GetEntries())
+		print('Pre-select %d entries out of %s '%(elist.GetN() if elist else inTree.GetEntries(),inTree.GetEntries()))
 		
 	    if fullClone:
 		# no need of a reader (no event loop), but set up the elist if available
@@ -139,9 +139,9 @@ class PostProcessor :
 	    # process events, if needed
 	    if not fullClone:
 		(nall, npass, timeLoop) = eventLoop(self.modules, inFile, outFile, inTree, outTree)
-		print 'Processed %d preselected entries from %s (%s entries). Finally selected %d entries' % (nall, fname, inTree.GetEntries(), npass)
+		print('Processed %d preselected entries from %s (%s entries). Finally selected %d entries' % (nall, fname, inTree.GetEntries(), npass))
 	    else:
-		print 'Selected %d entries from %s' % (outTree.tree().GetEntries(), fname)
+		print('Selected %d entries from %s' % (outTree.tree().GetEntries(), fname))
 
 	    # now write the output
             if not self.noOut: 
@@ -150,13 +150,13 @@ class PostProcessor :
                 self.hsumofweights.Write()
                 outTree.write()
                 outFile.Close()
-                print "Done %s" % outFileName
+                print("Done %s" % outFileName)
 	    if self.jobReport:
 		self.jobReport.addInputFile(fname,nall)
 		
 	for m in self.modules: m.endJob()
 	
-	print  totEntriesRead/(time.clock()-t0), "Hz"
+	print(totEntriesRead/(time.clock()-t0), "Hz")
 
 
 	if self.haddFileName :

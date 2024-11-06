@@ -8,11 +8,11 @@ class JSONFilter:
 	    self.runsAndLumis= json.load(open(fname, 'r'));
 	else :
 	    self.runsAndLumis=runsAndLumis
-        for _run,lumis in self.runsAndLumis.iteritems():
-            run = long(_run)
+        for _run,lumis in self.runsAndLumis.items():
+            run = int(_run)
             if run not in self.keep: self.keep[run] = []
             self.keep[run] += lumis
-        for run in self.keep.keys():
+        for run in list(self.keep.keys()):
             if len(self.keep[run])==0: del self.keep[run]
     def filterRunLumi(self,run,lumi):
         try:
@@ -24,7 +24,7 @@ class JSONFilter:
     def filterRunOnly(self,run):
         return (run in self.keep)
     def runCut(self):
-        return "%d <= run && run <= %s" % (min(self.keep.iterkeys()), max(self.keep.iterkeys()))
+        return "%d <= run && run <= %s" % (min(self.keep.keys()), max(self.keep.keys()))
     def filterEList(self, tree, elist):
         #FIXME this can be optimized for sure
         tree.SetBranchStatus("*", 0)
@@ -32,13 +32,13 @@ class JSONFilter:
         tree.SetBranchStatus('luminosityBlock',1)
         filteredList = ROOT.TEntryList('filteredList','filteredList')
         if elist:
-            for i in xrange(elist.GetN()):
+            for i in range(elist.GetN()):
                 entry = elist.GetEntry(0) if i == 0 else elist.Next()
                 tree.GetEntry(entry)
                 if self.filterRunLumi(tree.run, tree.luminosityBlock):
                     filteredList.Enter(entry)
         else:
-            for entry in xrange(tree.GetEntries()):
+            for entry in range(tree.GetEntries()):
                 tree.GetEntry(entry)
                 if self.filterRunLumi(tree.run, tree.luminosityBlock):
                     filteredList.Enter(entry)

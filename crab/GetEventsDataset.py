@@ -6,17 +6,17 @@ def GetEntriesDAS(sample, verbose = False, pretend = False):
     for s in sample: GetEntriesDAS(s, verbose, pretend)
     return
   dascommand = 'dasgoclient --query="summary dataset=%s"'%sample
-  if verbose: print 'Looking for sample: ', sample
+  if verbose: print('Looking for sample: ', sample)
   if pretend:
-    print 'Pretending: '
-    print ' >> ', dascommand
+    print('Pretending: ')
+    print(' >> ', dascommand)
     return
   out = os.popen(dascommand).read()
   d = ast.literal_eval(out)[0]
   nev = d['nevents']
   nfiles = d['nfiles']
   #print '%s: %i'%(FixStringLength(sample), nfiles)
-  print '%s: %i'%(sample, nev)
+  print('%s: %i'%(sample, nev))
 
 def FixStringLength(s, n = 45):
   while len(s) < n: s += ' '
@@ -41,7 +41,7 @@ dataset     = args.dataset
 
 path = CheckPathDataset(dataset)
 if path != '': 
-  print 'Reading file: ', path
+  print('Reading file: ', path)
   dataset = ReadLines(path)
 GetEntriesDAS(dataset, verbose, doPretend)
 

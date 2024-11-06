@@ -13,7 +13,7 @@ class collectionMerger(Module):
         self.input = input
         self.output = output
         self.nInputs = len(self.input)
-        self.sortkey = lambda (obj,j,i) : sortkey(obj)
+        self.sortkey = lambda obj_j_i1 : sortkey(obj_j_i1[0])
         self.reverse = reverse
         self.selector = [(selector[coll] if coll in selector else (lambda x: True)) for coll in self.input] if selector else None # pass dict([(collection_name,lambda obj : selection(obj)])
         self.maxObjects = maxObjects # save only the first maxObjects objects passing the selection in the merged collection
@@ -26,13 +26,13 @@ class collectionMerger(Module):
 
     def beginFile(self, inputFile, outputFile, inputTree, wrappedOutputTree):
         _brlist = inputTree.GetListOfBranches()
-        branches = [_brlist.At(i) for i in xrange(_brlist.GetEntries())]
+        branches = [_brlist.At(i) for i in range(_brlist.GetEntries())]
         self.brlist_sep = [self.filterBranchNames(branches,x) for x in self.input]
         self.brlist_all = set(itertools.chain(*(self.brlist_sep)))
 
         self.is_there = np.zeros(shape=(len(self.brlist_all),self.nInputs),dtype=bool)
         for bridx,br in enumerate(self.brlist_all):
-            for j in xrange(self.nInputs):
+            for j in range(self.nInputs):
                 if br in self.brlist_sep[j]: self.is_there[bridx][j]=True
 
         self.out = wrappedOutputTree
@@ -54,8 +54,8 @@ class collectionMerger(Module):
     def analyze(self, event):
         """process event, return True (go to next module) or False (fail, go to next event)"""
         coll = [Collection(event,x) for x in self.input]
-        objects = [(coll[j][i],j,i) for j in xrange(self.nInputs) for i in xrange(len(coll[j]))]
-        if self.selector: objects=filter(lambda (obj,j,i) : self.selector[j](obj), objects)
+        objects = [(coll[j][i],j,i) for j in range(self.nInputs) for i in range(len(coll[j]))]
+        if self.selector: objects=[obj_j_i for obj_j_i in objects if self.selector[obj_j_i[1]](obj_j_i[0])]
         objects.sort(key = self.sortkey, reverse = self.reverse)
         if self.maxObjects: objects = objects[:self.maxObjects]
         for bridx,br in enumerate(self.brlist_all):

@@ -6,6 +6,6 @@ f = TFile.Open(fname)
 i = 0
 for event in f.Events:
   i += 1
-  if hasattr(event, 'Muon_pt'): print 'Muon_pt'
-  if hasattr(event, 'Muon_genPartFlav'): print 'Muon_genPartFlav'
+  if hasattr(event, 'Muon_pt'): print('Muon_pt')
+  if hasattr(event, 'Muon_genPartFlav'): print('Muon_genPartFlav')
   if i >= 10: exit()

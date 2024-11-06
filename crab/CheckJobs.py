@@ -19,7 +19,7 @@ def CheckStatus(dirname, verbose = 1, autoResubmit = True, pretend = False, forc
   if not os.path.isdir(dirname): return
   command = 'crab status -d ' + dirname
   if pretend: 
-    print command
+    print(command)
     return
   out = os.popen(command).read()
 
@@ -36,12 +36,12 @@ def CheckStatus(dirname, verbose = 1, autoResubmit = True, pretend = False, forc
   elif status == 'FAILED'      : title += '\t\tStatus: '+GC(5)+status+GC()
   else                         : title += '\t\tStatus: '+GC(2)+status+GC()
   if fai != '' and status == 'FAILED':    title += '\t'+GC(1)+'Failed jobs: '+ fai.split('\t')[-1]+GC()
-  if verbose >= 1 or not 'COMPLETE' in status: print title
+  if verbose >= 1 or not 'COMPLETE' in status: print(title)
   if verbose >= 2:
-    if fin != '': print '  # ' + GC(2) + fin[:fin.find(' ')] + '\t' + GC(4) + fin[fin.find(' '):]+GC()
-    if tra != '': print '  # ' + GC(2) + tra[:tra.find(' ')] + '\t' + GC(4) + tra[tra.find(' '):]+GC()
-    if run != '': print '  # ' + GC(2) + run[:run.find(' ')] + '\t' + GC(4) + run[run.find(' '):]+GC()
-    if fai != '': print '  # ' + GC(2) + fai[:fai.find(' ')] + '\t' + GC(4) + fai[fai.find(' '):]+GC()
+    if fin != '': print('  # ' + GC(2) + fin[:fin.find(' ')] + '\t' + GC(4) + fin[fin.find(' '):]+GC())
+    if tra != '': print('  # ' + GC(2) + tra[:tra.find(' ')] + '\t' + GC(4) + tra[tra.find(' '):]+GC())
+    if run != '': print('  # ' + GC(2) + run[:run.find(' ')] + '\t' + GC(4) + run[run.find(' '):]+GC())
+    if fai != '': print('  # ' + GC(2) + fai[:fai.find(' ')] + '\t' + GC(4) + fai[fai.find(' '):]+GC())
   if   status == 'FAILED' and autoResubmit: Resubmit(dirname, verbose)
   elif status == 'SUBMITTED' and forceResubmit: Resubmit(dirname, verbose)
   elif status == 'SUBMITFAILED' and autoResubmit: CrabSubmit(dirname, verbose)
@@ -69,24 +69,24 @@ def CrabSubmit(dirname, verbose = 1, pretend = False, force = True):
     submitname = submitname + '/' + fname
   command = "crab submit -c %s"%(submitname)
   if pretend:
-    print command
+    print(command)
     return
   if force: 
     newdir = refname+'old' if not '/' in refname else refname.split('/')[-1]+'old'
-    print ' >> Moving dir %s to %s...'%(dirname, newdir)
+    print(' >> Moving dir %s to %s...'%(dirname, newdir))
     if os.path.isfile(newdir) or os.path.isdir(newdir): os.system('rm -r %s'%newdir)
     os.system('mv %s %s'%(dirname, newdir))
   os.system(command)
 
 
 def Resubmit(dirname, verbose = 1, pretend = False):
-  if verbose >= 1: print '  > ' + GC(1) + 'Resubmitting ' + GC(6) + dirname + GC() + '...'
+  if verbose >= 1: print('  > ' + GC(1) + 'Resubmitting ' + GC(6) + dirname + GC() + '...')
   command = 'crab resubmit -d ' + dirname
   if pretend:
-    print command
+    print(command)
     return
   os.system(command)# + ' >> /dev/null')
-  if verbose >= 2: print GC(3) + 'Done!' + GC()
+  if verbose >= 2: print(GC(3) + 'Done!' + GC())
 
 def CheckJobs(path = './', dirstart = 'crab_', date = '', verbose = 1, autoResubmit = False, tag = '', forceResubmit = False):
   for d in os.listdir(path):

@@ -39,7 +39,7 @@ class JetReCalibrator:
         elif os.path.exists("%s/Uncertainty_FAKE.txt" % path):
             self.JetUncertainty = ROOT.JetCorrectionUncertainty("%s/Uncertainty_FAKE.txt" % path);
         else:
-            print 'Missing JEC uncertainty file "%s/%s_Uncertainty_%s.txt", so jet energy uncertainties will not be available' % (path,globalTag,jetFlavour)
+            print('Missing JEC uncertainty file "%s/%s_Uncertainty_%s.txt", so jet energy uncertainties will not be available' % (path,globalTag,jetFlavour))
             self.JetUncertainty = None
         self.separateJetCorrectors = {}
         if self.calculateSeparateCorrections or self.calculateType1METCorrection:
@@ -74,7 +74,7 @@ class JetReCalibrator:
             try:
                 jet.jetEnergyCorrUncertainty = self.JetUncertainty.getUncertainty(True) 
             except RuntimeError as r:
-                print "Caught %s when getting uncertainty for jet of pt %.1f, eta %.2f\n" % (r,corr * jet.pt * (1.-jet.rawFactor),jet.eta)
+                print("Caught %s when getting uncertainty for jet of pt %.1f, eta %.2f\n" % (r,corr * jet.pt * (1.-jet.rawFactor),jet.eta))
                 jet.jetEnergyCorrUncertainty = 0.5
             corr *= max(0, 1+delta*jet.jetEnergyCorrUncertainty)
         return corr

@@ -94,11 +94,11 @@ class btagSFProducer(Module):
         }
 
         supported_algos = []
-        for algo in supported_btagSF.keys():
-            if era in supported_btagSF[algo].keys():
+        for algo in list(supported_btagSF.keys()):
+            if era in list(supported_btagSF[algo].keys()):
                 supported_algos.append(algo)
-        if self.algo in supported_btagSF.keys():
-            if self.era in supported_btagSF[self.algo].keys():
+        if self.algo in list(supported_btagSF.keys()):
+            if self.era in list(supported_btagSF[self.algo].keys()):
                 if self.inputFileName is None:
                     self.inputFileName = supported_btagSF[self.algo][self.era]['inputFileName']
                 self.measurement_types = supported_btagSF[self.algo][self.era]['measurement_types']
@@ -117,12 +117,12 @@ class btagSFProducer(Module):
             algoLabel = "cMVA"
         else:
             raise ValueError("ERROR: Algorithm '%s' not supported for era = '%s'! Please choose among { %s }." % (self.algo, self.era, supported_algos))
-        print("Loading btagSF weights for %s algorithm from file '%s'" % (algoLabel, os.path.join(self.inputFilePath, self.inputFileName)))
+        print(("Loading btagSF weights for %s algorithm from file '%s'" % (algoLabel, os.path.join(self.inputFilePath, self.inputFileName))))
 
         # load libraries for accessing b-tag scale factors (SFs) from conditions database
         for library in [ "libCondFormatsBTauObjects", "libCondToolsBTau" ]:
             if library not in ROOT.gSystem.GetLibraries():
-                print("Load Library '%s'" % library.replace("lib", ""))
+                print(("Load Library '%s'" % library.replace("lib", "")))
                 ROOT.gSystem.Load(library)
 
         # define systematic uncertainties
@@ -201,9 +201,9 @@ class btagSFProducer(Module):
         if shape_corr:
             wp = "shape_corr"
         wp_btv = { "l" : 0, "m" : 1, "t" : 2, "shape_corr" : 3 }.get(wp.lower(), None)
-        if wp_btv == None or not wp_btv in self.readers.keys():
+        if wp_btv == None or not wp_btv in list(self.readers.keys()):
             if self.verbose > 0:
-                print("WARNING: Unknown working point '%s', setting b-tagging SF reader to None!" % wp)
+                print(("WARNING: Unknown working point '%s', setting b-tagging SF reader to None!" % wp))
             return None
         return self.readers[wp_btv]
 
@@ -222,7 +222,7 @@ class btagSFProducer(Module):
             flavor_btv = 2
         else:
             if self.verbose > 0:
-                print("WARNING: Unknown flavor '%s', setting b-tagging SF to -1!" % repr(flavor))
+                print(("WARNING: Unknown flavor '%s', setting b-tagging SF to -1!" % repr(flavor)))
             return -1.
         return flavor_btv
 
@@ -252,7 +252,7 @@ class btagSFProducer(Module):
             # check if SF is OK
             if sf < 0.01:
                 if self.verbose > 0:
-                    print("jet #%i: pT = %1.1f, eta = %1.1f, discr = %1.3f, flavor = %i" % (idx, pt, eta, discr, flavor_btv))
+                    print(("jet #%i: pT = %1.1f, eta = %1.1f, discr = %1.3f, flavor = %i" % (idx, pt, eta, discr, flavor_btv)))
                 sf = 1.
             yield sf
 

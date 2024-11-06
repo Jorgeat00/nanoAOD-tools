@@ -12,7 +12,7 @@ class hepmcDump(Module, object):
         self.hepmcDumpFileName = kwargs.get('fileName', "hepmc.dat")
 
         if "/hepmcDumpCppWorker_cc.so" not in ROOT.gSystem.GetLibraries():
-            print "Load C++ hepmcDumpCppWorker worker module"
+            print("Load C++ hepmcDumpCppWorker worker module")
             base = os.getenv("NANOAODTOOLS_BASE")
             if base:
                 ROOT.gROOT.ProcessLine(".L %s/src/hepmcDumpCppWorker.cc+O"%base)

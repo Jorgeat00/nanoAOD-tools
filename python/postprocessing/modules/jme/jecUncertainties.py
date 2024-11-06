@@ -48,7 +48,7 @@ class jecUncertProducerCpp(jecUncertProducer,object):
         self.doCppOutput = kwargs.get('doCppOutput',False)
 
         if "/jecUncertProducerCppWorker_cc.so" not in ROOT.gSystem.GetLibraries():
-            print "Load C++ jecUncertProducerCppWorker worker module"
+            print("Load C++ jecUncertProducerCppWorker worker module")
             base = os.getenv("NANOAODTOOLS_BASE")
             if base:
                 ROOT.gROOT.ProcessLine(".L %s/src/jecUncertProducerCppWorker.cc+O"%base)

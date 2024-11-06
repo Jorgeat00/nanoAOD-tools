@@ -116,7 +116,7 @@ class FullOutput(OutputTree):
                         if (jsonFilter.filterRunOnly(ev.run) if _isRun else jsonFilter.filterRunLumi(ev.run,ev.luminosityBlock)): _ot.Fill()
                     self._otherTrees[kn] = _ot
             elif k.GetClassName() == "TTree":
-                print "Not copying unknown tree %s" % kn
+                print("Not copying unknown tree %s" % kn)
             else:
                 self._otherObjects[kn] = inputFile.Get(kn)
     def fill(self):
@@ -124,9 +124,9 @@ class FullOutput(OutputTree):
         self._tree.Fill()
     def write(self):
         OutputTree.write(self)
-        for t in self._otherTrees.itervalues():
+        for t in self._otherTrees.values():
             t.Write()
-        for on,ov in self._otherObjects.iteritems():
+        for on,ov in self._otherObjects.items():
             self._file.WriteTObject(ov,on)
 
 class FriendOutput(OutputTree):

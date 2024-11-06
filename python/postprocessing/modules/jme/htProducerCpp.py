@@ -7,7 +7,7 @@ from PhysicsTools.NanoAODTools.postprocessing.framework.eventloop import Module
 class htProducerCpp(Module): # HT producer, unclean jets only (no lepton overlap cleaning, no jet selection)
     def __init__(self):
         if "/htProducerCppWorker_cc.so" not in ROOT.gSystem.GetLibraries():
-            print "Load C++ htProducerCppWorker worker module"
+            print("Load C++ htProducerCppWorker worker module")
             base = os.getenv("NANOAODTOOLS_BASE")
             if base:
                 ROOT.gROOT.ProcessLine(".L %s/src/htProducerCppWorker.cc+O"%base)
